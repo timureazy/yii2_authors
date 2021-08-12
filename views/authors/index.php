@@ -10,8 +10,10 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
     <h1><?= Html::encode($this->title) ?></h1>
+<div>
 
 <?= GridView::widget([
+    'filterModel' => $searchModel,
     'dataProvider' => $dataProvider,
     'columns' => [
         [
@@ -38,8 +40,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'label' => 'Жанр',
             'attribute' => 'genre',
             'format' => 'text'
-        ]
+        ],
+        ['class' => 'yii\grid\ActionColumn']
     ]
 ]); ?>
-
+</div>
 

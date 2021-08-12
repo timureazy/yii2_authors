@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use kartik\datetime\DateTimePicker;
 ?>
 
 <div>
@@ -15,7 +15,19 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'patronymic')->textInput()->label('Отчество') ?>
 
-    <?= $form->field($model, 'date')->textInput()->label('Дата рождения') ?>
+    <?= $form->field($model, 'date')->widget(DateTimePicker::className(),[
+        'name' => 'date',
+        'type' => DateTimePicker::TYPE_INPUT,
+        'options' => ['placeholder' => 'Ввод даты/времени...'],
+        'convertFormat' => true,
+        'pluginOptions' => [
+            'format' => 'dd.MM.yyyy',
+            'autoclose'=>true,
+            'weekStart'=>1, //неделя начинается с понедельника
+            'startDate' => '0001.01.01 00:00', //самая ранняя возможная дата
+            'todayBtn'=>true, //снизу кнопка "сегодня"
+        ]
+    ]); ?>
 
     <?= $form->field($model, 'genre')->dropdownList(
         [
@@ -30,7 +42,7 @@ use yii\widgets\ActiveForm;
     )->label('Жанр'); ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Добавить', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Отправить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

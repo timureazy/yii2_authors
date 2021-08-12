@@ -24,7 +24,8 @@ class Authors extends \yii\db\ActiveRecord
         return [
             [['name', 'surname', 'patronymic', 'genre', 'date'], 'required'],
             [['date'], 'date', 'format' => 'yyyy-MM-dd'],
-            [['name', 'surname', 'patronymic', 'genre'], 'string']
+            [['name', 'surname', 'patronymic', 'genre'], 'string'],
+            [['id'], 'integer']
         ];
     }
 
@@ -35,7 +36,8 @@ class Authors extends \yii\db\ActiveRecord
             'surname' => 'surname',
             'patronymic' => 'patronymic',
             'genre' => 'genre',
-            'date' => 'date'
+            'date' => 'date',
+            'id' => 'id'
         ];
 
     }

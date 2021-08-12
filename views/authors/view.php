@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
-$this->title = 'Автор добавлен';
+$this->title = 'Информация об авторе';
 $this->params['breadcrumbs'][] = ['label' => 'Авторы', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

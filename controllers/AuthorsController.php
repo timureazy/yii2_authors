@@ -3,6 +3,7 @@
 
 namespace app\controllers;
 
+use app\models\AuthorsSearch;
 use Yii;
 use app\models\Authors;
 use yii\data\ActiveDataProvider;
@@ -13,16 +14,10 @@ class AuthorsController extends Controller
 
     public function actionIndex ()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Authors::find(),
-            'pagination' => [
-                'forcePageParam' => false,
-                'pageSizeParam' => false,
-                'pageSize' => 2
-            ]
-            ]);
-
+        $searchModel = new AuthorsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider
             ]);
     }
@@ -42,4 +37,39 @@ class AuthorsController extends Controller
 
     }
 
+    public function actionView($id)
+    {
+
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    protected function findModel($id)
+    {
+        if (($model = Authors::findOne($id)) !== null) {
+            return $model;
+        }
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
 }
