@@ -16,7 +16,6 @@ use kartik\datetime\DateTimePicker;
     <?= $form->field($model, 'patronymic')->textInput()->label('Отчество') ?>
 
     <?= $form->field($model, 'date')->widget(DateTimePicker::className(),[
-        'name' => 'date',
         'type' => DateTimePicker::TYPE_INPUT,
         'options' => ['placeholder' => 'Ввод даты/времени...'],
         'convertFormat' => true,
@@ -27,7 +26,7 @@ use kartik\datetime\DateTimePicker;
             'startDate' => '0001.01.01 00:00', //самая ранняя возможная дата
             'todayBtn'=>true, //снизу кнопка "сегодня"
         ]
-    ]); ?>
+    ])->label('Дата рождения'); ?>
 
     <?= $form->field($model, 'genre')->dropdownList(
         [
