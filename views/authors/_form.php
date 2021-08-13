@@ -7,7 +7,21 @@ use kartik\datetime\DateTimePicker;
 
 <div>
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php
+
+        $this->registerJs(
+            '$("document").ready(function(){ 
+		        $("#newAuthor").on("pjax:end", function() {
+			        $.pjax.reload();  //Reload GridView
+		    });
+        });'
+        );
+
+    ?>
+
+    <?php yii\widgets\Pjax::begin(['id' => 'newAuthor']) ?>
+
+    <?php $form = ActiveForm::begin(['options' => ['data-pjax' => true]]); ?>
 
     <?= $form->field($model, 'name')->textInput()->label('Имя') ?>
 
@@ -20,7 +34,7 @@ use kartik\datetime\DateTimePicker;
         'options' => ['placeholder' => 'Ввод даты/времени...'],
         'convertFormat' => true,
         'pluginOptions' => [
-            'format' => 'dd.MM.yyyy',
+            'format' => 'yyyy-MM-dd',
             'autoclose'=>true,
             'weekStart'=>1, //неделя начинается с понедельника
             'startDate' => '0001.01.01 00:00', //самая ранняя возможная дата
@@ -44,6 +58,6 @@ use kartik\datetime\DateTimePicker;
         <?= Html::submitButton('Отправить', ['class' => 'btn btn-success']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
-
+    <?php ActiveForm::end() ?>
+    <?php yii\widgets\Pjax::end() ?>
 </div>
